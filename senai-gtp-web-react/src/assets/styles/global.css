@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+/* Quando não existe a fonte no computador, pode baixar no google.fonts e importar no arquivo CSS */
+
+* {
+
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+.inpt {
+
+    border-radius: 16px;
+    /* Arredondar as bordas da caixa */
+    padding: 18px;
+    /*Espaçamento da caixa de texto das bordas */
+    border: none;
+    /*Tirar a borda do caixa de texto - altura - colocar borda ficaria com 1px solid + cor */
+    background-color: #F7F9FB;
+    width: 377px;
+    /* tamanho do botão - largura */
+    margin-bottom: 16px;
+}
+
+.btn {
+
+    padding: 18px;
+    /*Espaçamento da caixa de texto das bordas */
+    border-radius: 16px;
+    /* Arredondar as bordas da caixa */
+    background-color: #1C1C1C;
+    /*colocar cor no campo do botão */
+    color: #FFFFFF;
+    /* colocar cor da letra do botão */
+    border: none;
+    /*Tirar a borda do caixa de texto - altura*/
+    width: 377px;
+    /* tamanho do botão - largura*/
+    border-radius: 10px;
+    /*arredondar as bordas */
+}
