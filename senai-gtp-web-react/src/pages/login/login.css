@@ -1,32 +1,14 @@
-/* formatação pela class 
-.titulo {
-
-    font-size: 76px;
-
-} */
-
-/* formatação pelo id
-#meutitulo {
-
-    font-size: 76px;
-
-} */
-
 .page-container {
 
     display: flex;
-    
+
 }
 
-/* formatação pela tag */
 h1 {
 
     font-size: 76px;
-    /* tamanho da fonte */
     font-family: inter;
-    /* a letra */
     font-weight: normal;
-    /* tipo da letra, se negito ou nomal etc */
     margin-bottom: 16px;
 
 }
@@ -35,31 +17,23 @@ h1 {
 
     display: flex;
     flex-direction: column;
-    /* deixar em colunas */
     justify-content: center;
-    /* alinhamento na vertical - quando utilizado o flex-direction como row ele inverte para horizontal  */
     align-items: center;
-    /* alinhamento na horizontal - quando utilizado o flex-direction como row ele inverte para vertical */
     height: 100vh;
-    /* VH - proporção em altura, VW - proporção em largura */
     width: 50vw;
 
 }
 
 .logo {
+
     height: 60px;
 
 }
 
 .robo-image {
 
-    background-image: url("../assets/imgs/Sidebar.png");
-    /* mostra a imagem de fundo na pagina, onde se necessário dá para escrever em cima */
+    background-image: url("../../assets/imgs/Sidebar.png");
     background-size: cover;
-    /* cover para manter a proporção da imagem  e contain é para imagem sem corte */
-    /* background-repeat: no-repeat; */
-    /* para não repetir a imagem */
-
     width: 50vw;
     height: 100vh;
 
