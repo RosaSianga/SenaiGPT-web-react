@@ -23,6 +23,44 @@ function Login() {
 
         console.log(response);
 
+        if (response.ok == true) {
+
+            alert("Login realizado com sucesso");
+
+            let json = await response.json();
+
+            let token = json.accessToken;
+
+            console.log("Token: " + token);
+
+            // GUARDAR INFORMAÇÃO NA PAGINA
+            localStorage.setItem("meuToken", token);
+
+            //COOKIES PARA DEFINIR A EXPIRAÇÃO DO TOKEN
+
+            // Function setCookie(name, value, days); {
+            //     const date = name Date();
+            //     date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); // dias ==> ms
+            //     const expires  "expires=" + date.toUTCString();
+            //     document.cookie = '${name}=${value}; ${expires}; path=';
+            // }
+
+            // setCookie("meuToken", token, 7);
+
+            window.location.href = "/Chat"
+            
+        } else {
+
+            if (response.status == 401) {
+
+                alert("Credenciais incorretas. Tente novamente");
+
+            } else {
+                
+                alert("Erro inesperado aconteceu, caso persista contate os administradores.");
+            }
+        }
+
     }
 
     return (

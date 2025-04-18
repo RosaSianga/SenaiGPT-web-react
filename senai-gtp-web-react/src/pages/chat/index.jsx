@@ -1,11 +1,11 @@
-import ".chat.css";
+import "./chat.css";
 import chat from "../../assets/imgs/chat.svg";
 import lixeira from "../../assets/imgs/lixeira.svg";
 import sol from "../../assets/imgs/sol.svg";
 import user from "../../assets/imgs/user.svg";
 import setaCima from "../../assets/imgs/seta_cima.svg";
-import setaLado from "../../assets/imgs/setaLado.svg";
-import chatGPT from "../../assets/imgs/ChatGPT";
+import setaLado from "../../assets/imgs/seta_lado.svg";
+import chatGPT from "../../assets/imgs/ChatGPT.png";
 import chatVazio from "../../assets/imgs/chat_vazio.svg";
 import estrela from "../../assets/imgs/estrela.svg";
 import escudo from "../../assets/imgs/escudo.svg";

@@ -1,3 +1,4 @@
+import Chat from "./pages/chat";
 import Login from "./pages/login";
 
 function App() {
@@ -5,7 +6,8 @@ function App() {
   return (
     <>
 
-      <Login />
+      <Login/>
+      <Chat/>
 
     </>
   )
