@@ -1,7 +1,7 @@
 import Chat from "./pages/chat";
 import Login from "./pages/login";
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 function App() {
 
@@ -11,13 +11,16 @@ function App() {
       {/* <Login/>
       <Chat/> */}
 
-      <Router>
+      <BrowserRouter>
 
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/Chat" element={<Chat />} />
+          <Route path="*" element={<h1>Not Found</h1>} />
         </Routes>
-      </Router>
+
+      </BrowserRouter>
 
     </>
   )

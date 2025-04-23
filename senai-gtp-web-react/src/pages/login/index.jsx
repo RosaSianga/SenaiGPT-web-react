@@ -9,59 +9,67 @@ function Login() {
 
     const onLoginClick = async () => {
 
-        let response = await fetch("https://senai-gpt-api.azurewebsites.net/login", {
-
-            headers: {
-                "content-Type": "application/json"
-            },
-            method: "POST",
-            body: JSON.stringify({
-                email: email,
-                password: password
-            })
-        });
-
-        console.log(response);
-
-        if (response.ok == true) {
-
-            alert("Login realizado com sucesso");
-
-            let json = await response.json();
-
-            let token = json.accessToken;
-
-            console.log("Token: " + token);
-
-            // GUARDAR INFORMAÇÃO NA PAGINA
-            localStorage.setItem("meuToken", token);
-
-            //COOKIES PARA DEFINIR A EXPIRAÇÃO DO TOKEN
-
-            // Function setCookie(name, value, days); {
-            //     const date = name Date();
-            //     date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); // dias ==> ms
-            //     const expires  "expires=" + date.toUTCString();
-            //     document.cookie = '${name}=${value}; ${expires}; path=';
-            // }
-
-            // setCookie("meuToken", token, 7);
-
-            window.location.href = "/Chat"
-            
+        if (email == "" || senha == "") {
+            alert("Email não informado");
+        } else if (validarEmail(email) == "false") {
+            alert("Email inválido. Tente novamente");
         } else {
 
-            if (response.status == 401) {
+            let response = await fetch("https://senai-gpt-api.azurewebsites.net/login", {
 
-                alert("Credenciais incorretas. Tente novamente");
+                headers: {
+                    "content-Type": "application/json"
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                })
+            });
+
+            console.log(response);
+
+            if (response.ok == true) {
+
+                alert("Login realizado com sucesso");
+
+                let json = await response.json();
+
+                let token = json.accessToken;
+
+                console.log("Token: " + token);
+
+                // GUARDAR INFORMAÇÃO NA PAGINA
+                localStorage.setItem("meuToken", token);
+
+                //COOKIES PARA DEFINIR A EXPIRAÇÃO DO TOKEN
+
+                // Function setCookie(name, value, days); {
+                //     const date = name Date();
+                //     date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); // dias ==> ms
+                //     const expires  "expires=" + date.toUTCString();
+                //     document.cookie = '${name}=${value}; ${expires}; path=';
+                // }
+
+                // setCookie("meuToken", token, 7);
+
+                window.location.href = "/Chat"
 
             } else {
-                
-                alert("Erro inesperado aconteceu, caso persista contate os administradores.");
+
+                if (response.status == 401) {
+
+                    alert("Credenciais incorretas. Tente novamente");
+
+                } else {
+
+                    alert("Erro inesperado aconteceu, caso persista contate os administradores.");
+                }
             }
         }
-
     }
+
+
 
     return (
         <>
@@ -94,5 +102,11 @@ function Login() {
         </>
     )
 }
+
+function validarEmail(email) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+}
+
 
 export default Login;
