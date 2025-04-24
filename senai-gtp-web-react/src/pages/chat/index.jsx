@@ -1,5 +1,5 @@
 import "./chat.css";
-import chat from "../../assets/imgs/chat.svg";
+import imgChat from "../../assets/imgs/chat.svg";
 import lixeira from "../../assets/imgs/lixeira.svg";
 import sol from "../../assets/imgs/sol.svg";
 import user from "../../assets/imgs/user.svg";
@@ -12,62 +12,94 @@ import escudo from "../../assets/imgs/escudo.svg";
 import microfone from "../../assets/imgs/microfone.svg";
 import image from "../../assets/imgs/image.svg";
 import seta from "../../assets/imgs/seta.svg";
+import { useEffect, useState } from "react";
 
 
 function Chat() {
 
+    const [chats, setChats] = useState([]);
+
+
+    useEffect(() => {
+        // Executa toda vez que a tela abre.
+
+        getChats();
+
+    }, []);
+
+    const getChats = async () => {
+
+        let response = await fetch("https://senai-gpt-api.azurewebsites.net/chats", {
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("meuToken")
+            }
+
+        });
+
+        console.log(response);
+
+        if (response.ok == true) {
+
+            let json = await response.json();
+
+            setChats(json);
+
+        } else {
+            if (response.status == 401);
+            alert("Token Inválido. Faça o login novamente");
+            window.location.href = "/login";
+        }
+
+
+    }
+
     return (
         <>
 
-            <div class="tela">
+            <div className="tela">
 
-                <header class="chat">
+                <header className="chat">
 
-                    <div class="superior">
+                    <div className="superior">
 
-                        <button class="btnchat" type="button"> + New chat </button>
+                        <button className="btnchat" type="button"> + New chat </button>
 
-                        <button class="botoes" type="button">
-                            <img src={chat} alt="Imagem chat" />
-                            AI Chat Tool Ethics
-                        </button>
+                        {chats.map(chat => (
 
-                        <button class="botoes" type="button">
-                            <img src={chat} alt="Imagem chat" />
-                            AI Chat Tool Impact Writing
-                        </button>
+                            <button className="botoes" type="button">
+                                <img src={imgChat} alt="Imagem chat" />
+                                {chat.chatTitle}
+                            </button>
 
-                        <button class="botoes" type="button">
-                            <img src={chat} alt="Imagem chat" />
-                            New chat
-                        </button>
+                        ))}
+
 
                     </div>
 
 
-                    <div class="inferior">
+                    <div className="inferior">
 
-                        <button class="botoes" type="button">
+                        <button className="botoes" type="button">
                             <img src={lixeira} alt="Imagem lixeira" />
                             Clear conversation
                         </button>
 
-                        <button class="botoes" type="button">
+                        <button className="botoes" type="button">
                             <img src={sol} alt="Imagem ligth mode" />
                             Ligth mode
                         </button>
 
-                        <button class="botoes" type="button">
+                        <button className="botoes" type="button">
                             <img src={user} alt="Imagem My account" />
                             My account
                         </button>
 
-                        <button class="botoes" type="button">
+                        <button className="botoes" type="button">
                             <img src={setaCima} alt="Imagem update e FAQ" />
                             Updates & FAQ
                         </button>
 
-                        <button class="botoes" type="button">
+                        <button className="botoes" type="button">
                             <img src={setaLado} alt="Imagem logout" />
                             Log out
                         </button>
@@ -79,54 +111,54 @@ function Chat() {
 
                 <main>
 
-                    <div class="principal">
+                    <div className="principal">
 
-                        <img class="imagem" src={chatGPT} alt="Logo SenaiGPT" />
+                        <img className="imagem" src={chatGPT} alt="Logo SenaiGPT" />
 
 
-                        <div class="tabela">
+                        <div className="tabela">
 
-                            <div class="btngrupo">
+                            <div className="btngrupo">
                                 <h1>
                                     <img src={chatVazio} alt="Imagem chat" />
                                     Examples
                                 </h1>
-                                <button class="botao" type="button">Explain Quantum Computing insimple terms</button>
-                                <button class="botao" type="button">Explain Quantum Computing insimple terms</button>
-                                <button class="botao" type="button">Explain Quantum Computing insimple terms</button>
+                                <button className="botao" type="button">Explain Quantum Computing insimple terms</button>
+                                <button className="botao" type="button">Explain Quantum Computing insimple terms</button>
+                                <button className="botao" type="button">Explain Quantum Computing insimple terms</button>
                             </div>
 
 
-                            <div class="btngrupo">
+                            <div className="btngrupo">
                                 <h1>
                                     <img src={estrela} alt="Imagem chat" />
                                     Capalities
                                 </h1>
-                                <button class="botao" type="button">Explain Quantum Computing insimple terms</button>
-                                <button class="botao" type="button">Explain Quantum Computing insimple terms</button>
-                                <button class="botao" type="button">Explain Quantum Computing insimple terms</button>
+                                <button className="botao" type="button">Explain Quantum Computing insimple terms</button>
+                                <button className="botao" type="button">Explain Quantum Computing insimple terms</button>
+                                <button className="botao" type="button">Explain Quantum Computing insimple terms</button>
                             </div>
 
 
-                            <div class="btngrupo">
+                            <div className="btngrupo">
                                 <h1>
                                     <img src={escudo} alt="Imagem chat" />
                                     Limitions
                                 </h1>
-                                <button class="botao" type="button">Explain Quantum Computing insimple terms</button>
-                                <button class="botao" type="button">Explain Quantum Computing insimple terms</button>
-                                <button class="botao" type="button">Explain Quantum Computing insimple terms</button>
+                                <button className="botao" type="button">Explain Quantum Computing insimple terms</button>
+                                <button className="botao" type="button">Explain Quantum Computing insimple terms</button>
+                                <button className="botao" type="button">Explain Quantum Computing insimple terms</button>
                             </div>
 
                         </div>
 
 
-                        <div class="pesquisa">
+                        <div className="pesquisa">
 
                             <img src={microfone} alt="Imagem microfone" />
                             <img src={image} alt="Imagem foto" />
 
-                            <input class="input" type="text" placeholder="Type message" />
+                            <input className="input" type="text" placeholder="Type message" />
 
                             <img src={seta} alt="Imagem foto" />
 

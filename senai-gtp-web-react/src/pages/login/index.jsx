@@ -9,12 +9,15 @@ function Login() {
 
     const onLoginClick = async () => {
 
-        if (email == "" || senha == "") {
+
+        let emailValid = validarEmail(email);
+        console.log(emailValid);
+
+        if (email == "" || password == "") {
             alert("Email não informado");
-        } else if (validarEmail(email) == "false") {
+        } else if (emailValid == false) {
             alert("Email inválido. Tente novamente");
         } else {
-
             let response = await fetch("https://senai-gpt-api.azurewebsites.net/login", {
 
                 headers: {
@@ -106,6 +109,7 @@ function Login() {
 function validarEmail(email) {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
+
 }
 
 
