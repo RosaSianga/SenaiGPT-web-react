@@ -1,22 +1,32 @@
 import Chat from "./pages/chat";
 import Login from "./pages/login";
+import Account from "./pages/account";
 import React from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 function App() {
 
+  const isAuthenticated = () => {
+
+    let token = localStorage.getItem("meuToken");
+
+    if (token == null) {
+      return false
+    } else {
+      return true;
+    }
+  }
+
   return (
     <>
-
-      {/* <Login/>
-      <Chat/> */}
 
       <BrowserRouter>
 
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/Chat" element={<Chat />} />
+          <Route path="/Chat" element={ isAuthenticated() == true? <Chat/> : <Login/>} />
+          <Route path="/account" element={<Account />} />
           <Route path="*" element={<h1>Not Found</h1>} />
         </Routes>
 

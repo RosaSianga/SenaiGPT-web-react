@@ -18,6 +18,7 @@ import { useEffect, useState } from "react";
 function Chat() {
 
     const [chats, setChats] = useState([]);
+    const [chatSelecionado, setchatSelecionado] = useState(null);
 
 
     useEffect(() => {
@@ -40,16 +41,35 @@ function Chat() {
 
         if (response.ok == true) {
 
-            let json = await response.json();
+            let json = await response.json(); //Pega a informação do back-end
 
             setChats(json);
 
         } else {
             if (response.status == 401);
             alert("Token Inválido. Faça o login novamente");
+            localStorage.clear();
             window.location.href = "/login";
         }
 
+
+    }
+
+    const onLogoutClick = () => {
+
+        localStorage.clear();
+        window.location.href = "/login";
+
+    }
+
+    const clickChat = (chat) => {
+        setchatSelecionado(chat);
+
+    }
+
+    const myAccountClick = () => {
+
+        window.location.href = "/account";
 
     }
 
@@ -66,7 +86,7 @@ function Chat() {
 
                         {chats.map(chat => (
 
-                            <button className="botoes" type="button">
+                            <button className="botoes" type="button" onClick={() => clickChat(chat)}>
                                 <img src={imgChat} alt="Imagem chat" />
                                 {chat.chatTitle}
                             </button>
@@ -89,7 +109,7 @@ function Chat() {
                             Ligth mode
                         </button>
 
-                        <button className="botoes" type="button">
+                        <button className="botoes" type="button" onClick={() => myAccountClick()}>
                             <img src={user} alt="Imagem My account" />
                             My account
                         </button>
@@ -99,7 +119,7 @@ function Chat() {
                             Updates & FAQ
                         </button>
 
-                        <button className="botoes" type="button">
+                        <button className="botoes" type="button" onClick={() => onLogoutClick()}>
                             <img src={setaLado} alt="Imagem logout" />
                             Log out
                         </button>
@@ -113,45 +133,51 @@ function Chat() {
 
                     <div className="principal">
 
-                        <img className="imagem" src={chatGPT} alt="Logo SenaiGPT" />
+                        {chatSelecionado == null && (
+                            <>
 
 
-                        <div className="tabela">
-
-                            <div className="btngrupo">
-                                <h1>
-                                    <img src={chatVazio} alt="Imagem chat" />
-                                    Examples
-                                </h1>
-                                <button className="botao" type="button">Explain Quantum Computing insimple terms</button>
-                                <button className="botao" type="button">Explain Quantum Computing insimple terms</button>
-                                <button className="botao" type="button">Explain Quantum Computing insimple terms</button>
-                            </div>
+                                <img className="imagem" src={chatGPT} alt="Logo SenaiGPT" />
 
 
-                            <div className="btngrupo">
-                                <h1>
-                                    <img src={estrela} alt="Imagem chat" />
-                                    Capalities
-                                </h1>
-                                <button className="botao" type="button">Explain Quantum Computing insimple terms</button>
-                                <button className="botao" type="button">Explain Quantum Computing insimple terms</button>
-                                <button className="botao" type="button">Explain Quantum Computing insimple terms</button>
-                            </div>
+                                <div className="tabela">
+
+                                    <div className="btngrupo">
+                                        <h1>
+                                            <img src={chatVazio} alt="Imagem chat" />
+                                            Examples
+                                        </h1>
+                                        <button className="botao" type="button">Explain Quantum Computing insimple terms</button>
+                                        <button className="botao" type="button">Explain Quantum Computing insimple terms</button>
+                                        <button className="botao" type="button">Explain Quantum Computing insimple terms</button>
+                                    </div>
 
 
-                            <div className="btngrupo">
-                                <h1>
-                                    <img src={escudo} alt="Imagem chat" />
-                                    Limitions
-                                </h1>
-                                <button className="botao" type="button">Explain Quantum Computing insimple terms</button>
-                                <button className="botao" type="button">Explain Quantum Computing insimple terms</button>
-                                <button className="botao" type="button">Explain Quantum Computing insimple terms</button>
-                            </div>
+                                    <div className="btngrupo">
+                                        <h1>
+                                            <img src={estrela} alt="Imagem chat" />
+                                            Capalities
+                                        </h1>
+                                        <button className="botao" type="button">Explain Quantum Computing insimple terms</button>
+                                        <button className="botao" type="button">Explain Quantum Computing insimple terms</button>
+                                        <button className="botao" type="button">Explain Quantum Computing insimple terms</button>
+                                    </div>
 
-                        </div>
 
+                                    <div className="btngrupo">
+                                        <h1>
+                                            <img src={escudo} alt="Imagem chat" />
+                                            Limitions
+                                        </h1>
+                                        <button className="botao" type="button">Explain Quantum Computing insimple terms</button>
+                                        <button className="botao" type="button">Explain Quantum Computing insimple terms</button>
+                                        <button className="botao" type="button">Explain Quantum Computing insimple terms</button>
+                                    </div>
+
+                                </div>
+
+                            </>
+                        )}
 
                         <div className="pesquisa">
 
@@ -175,5 +201,9 @@ function Chat() {
         </>
     )
 }
+
+
+
+
 
 export default Chat;
