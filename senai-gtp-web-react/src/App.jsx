@@ -26,7 +26,7 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
           <Route path="/Chat" element={ isAuthenticated() == true? <Chat/> : <Login/>} />
-          <Route path="/account" element={<Account />} />
+          <Route path="/myAccount" element={<Account />} />
           <Route path="*" element={<h1>Not Found</h1>} />
         </Routes>
 
