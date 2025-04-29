@@ -5,7 +5,7 @@ import sol from "../../assets/imgs/sol.svg";
 import user from "../../assets/imgs/user.svg";
 import setaCima from "../../assets/imgs/seta_cima.svg";
 import setaLado from "../../assets/imgs/seta_lado.svg";
-import chatGPT from "../../assets/imgs/ChatGPT.png";
+import imgChatGPT from "../../assets/imgs/ChatGPT.png";
 import chatVazio from "../../assets/imgs/chat_vazio.svg";
 import estrela from "../../assets/imgs/estrela.svg";
 import escudo from "../../assets/imgs/escudo.svg";
@@ -78,7 +78,7 @@ function Chat() {
 
         // Configurações do endpoint e chave da API
         const endpoint = "https://ai-testenpl826117277026.openai.azure.com/";
-        const apiKey = "";
+        const apiKey = "DCYQGY3kPmZXr0lh7xeCSEOQ5oiy1aMlN1GeEQd5G5cXjuLWorWOJQQJ99BCACYeBjFXJ3w3AAAAACOGol8N";
         const deploymentId = "gpt-4"; // Nome do deployment no Azure OpenAI
         const apiVersion = "2024-05-01-preview"; // Verifique a versão na documentação
 
@@ -114,28 +114,57 @@ function Chat() {
 
     const enviarMensagem = async (message) => {
 
-        let resposta = await chatGPT(message);
+        console.log("Mensagem: ", message);
 
-        console.log("Resposta: ", resposta);
+        let userId = localStorage.getItem("meuId");
 
         let novaMensagemUsuario = {
-            userId: "userId",
             text: message,
-            id: 10
+            id: crypto.randomUUID(),
+            userId: userId
         };
 
+        let novoChatSelecionado = { ...chatSelecionado };
+        novoChatSelecionado.messages.push(novaMensagemUsuario);
+
+        let respostaGPT = await chatGPT(message);
+
         let novaRespostaChatGPT = {
-            userId: "chatbot",
-            text: resposta,
-            id: 10
+            text: respostaGPT,
+            id: crypto.randomUUID(),
+            userId: "chatbot"
+        };
+
+        novoChatSelecionado.messages.push(novaRespostaChatGPT);
+        setchatSelecionado(novoChatSelecionado);
+
+let response = await fetch("https://senai-gpt-api.azurewebsites.net/chats/" + chatSelecionado.id, {
+    method: "PUT",
+    headers: {
+        "Authorization": "Bearer " + localStorage.getItem("meuToken"),
+        "content-type" : "application/json"
+    },
+    body: JSON.stringify(
+        novoChatSelecionado
+    )
+    });
+
+    if(response.ok == false) {
+        console.log("salvar o chat deu errado");
+    }
+
+       setUserMessage("");
+
+    }
+
+    const onKeyUp = (event) => {
+
+        if (event.key == "Enter") {
+
+            enviarMensagem(userMessage);
+
         }
 
-        let novoChatSelecionado = { ...chatSelecionado}; //cópia do chat selecionado
-        novoChatSelecionado.messages.push(novaMensagemUsuario); //Adicionando uma mensagem
-        novoChatSelecionado.messages.push(novaRespostaChatGPT); //Adicionando uma mensagem
-
-        setchatSelecionado(novoChatSelecionado);
-              
     }
 
     return (
@@ -202,7 +231,7 @@ function Chat() {
                             <>
 
 
-                                <img className="imagem" src={chatGPT} alt="Logo SenaiGPT" />
+                                <img className="imagem" src={imgChatGPT} alt="Logo SenaiGPT" />
 
 
                                 <div className="tabela">
@@ -278,9 +307,9 @@ function Chat() {
                             <img src={microfone} alt="Imagem microfone" />
                             <img src={image} alt="Imagem foto" />
 
-                            <input className="input" value={userMessage} onChange={event => setUserMessage(event.target.value)} type="text" placeholder="Type message" />
+                            <input onKeyUp={event => onKeyUp(event)} className="input" value={userMessage} onChange={event => setUserMessage(event.target.value)} type="text" placeholder="Type message" />
 
-                            <img src={seta} alt="Imagem foto" onClick={() => enviarMensagem(userMessage)} />
+                            <img src={seta} alt="Imagem foto" onClick={() => enviarMensagem(userMessage) } />
 
                         </div>
 

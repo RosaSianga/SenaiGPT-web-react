@@ -22,6 +22,8 @@ function Account() {
 
         getChats();
 
+        getAccount();
+
     }, []);
 
     const getChats = async () => {
@@ -51,6 +53,25 @@ function Account() {
 
     }
 
+    const getAccount = async () => {
+
+        let meuId = localStorage.getItem("meuToken");
+        let response = await fetch("https://senai-gpt-api.azurewebsites.net/users", {
+            headers: {
+                "content-Type": "application/json"
+            },
+            method: "POST",
+            body: JSON.stringify({
+                id: meuId
+            })
+        });
+
+        console.log(response);
+
+
+    }
+
+
     const onLogoutClick = () => {
 
         localStorage.clear();
@@ -59,7 +80,7 @@ function Account() {
     }
 
     const clickChat = (chat) => {
-        setchatSelecionado(chat);
+        window.location.href = "/chat";
 
     }
 
@@ -77,8 +98,6 @@ function Account() {
                 <header className="chat">
 
                     <div className="superior">
-
-                        <button className="btnchat" type="button"> + New chat </button>
 
                         {chats.map(chat => (
 
@@ -136,12 +155,16 @@ function Account() {
 
                             <h1>My Account</h1>
 
-                            <input className="inpt" value={nome} onChange={event => setNome(event.target.value)} type="text" />
-                            <input className="inpt" value={email} onChange={event => setEmail(event.target.value)} type="email" />
-                            <input className="inpt" value={password} onChange={event => setPassword(event.target.value)} type="password" />
+                            <div className="dados">
+                                <p>Nome : </p>
+                                <input className="inpt" value={nome} onChange={event => setNome(event.target.value)} type="text" />
+                                <p>Email :</p>
+                                <input className="inpt" value={email} onChange={event => setEmail(event.target.value)} type="email" />,
+                                <p>Password :</p>
+                                <input className="inpt" value={password} onChange={event => setPassword(event.target.value)} type="password" />
 
-                            {/* <button className="btn" onClick={() => onLoginClick()}>Entrar</button> */}
-
+                                {/* <button className="btn" onClick={() => onLoginClick()}>Entrar</button> */}
+                            </div>
                         </div>
 
                     </div>

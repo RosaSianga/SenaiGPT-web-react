@@ -9,7 +9,6 @@ function Login() {
 
     const onLoginClick = async () => {
 
-
         let emailValid = validarEmail(email);
         console.log(emailValid);
 
@@ -39,11 +38,13 @@ function Login() {
                 let json = await response.json();
 
                 let token = json.accessToken;
+                let userId = json.user.id;
 
                 console.log("Token: " + token);
 
                 // GUARDAR INFORMAÇÃO NA PAGINA
                 localStorage.setItem("meuToken", token);
+                localStorage.setItem("meuId", userId);
 
                 //COOKIES PARA DEFINIR A EXPIRAÇÃO DO TOKEN
 
