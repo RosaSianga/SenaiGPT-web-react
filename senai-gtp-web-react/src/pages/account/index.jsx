@@ -11,7 +11,6 @@ import { useEffect, useState } from "react";
 
 function Account() {
     const [chats, setChats] = useState([]);
-    const [chatSelecionado, setchatSelecionado] = useState(null);
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -55,18 +54,29 @@ function Account() {
 
     const getAccount = async () => {
 
-        let meuId = localStorage.getItem("meuToken");
-        let response = await fetch("https://senai-gpt-api.azurewebsites.net/users", {
+        let meuId = localStorage.getItem("meuId");
+        let response = await fetch("https://senai-gpt-api.azurewebsites.net/users/" + meuId, {
             headers: {
-                "content-Type": "application/json"
+                "Authorization": "Bearer " + localStorage.getItem("meuToken"),
+                "content-type": "application/json"
             },
-            method: "POST",
-            body: JSON.stringify({
-                id: meuId
-            })
+            method: "GET"
         });
 
         console.log(response);
+
+        if (response.ok == true) {
+
+            let json = await response.json(); //Pega a informação do back-end
+
+
+            setEmail(json.email);
+            setNome(json.name);
+            setPassword(json.password);
+
+            console.log(json);
+
+        }
 
 
     }
@@ -79,7 +89,7 @@ function Account() {
 
     }
 
-    const clickChat = (chat) => {
+    const clickChat = () => {
         window.location.href = "/chat";
 
     }
@@ -101,7 +111,7 @@ function Account() {
 
                         {chats.map(chat => (
 
-                            <button className="botoes" type="button" onClick={() => clickChat(chat)}>
+                            <button className="botoes" type="button" onClick={() => clickChat()}>
                                 <img src={imgChat} alt="Imagem chat" />
                                 {chat.chatTitle}
                             </button>
