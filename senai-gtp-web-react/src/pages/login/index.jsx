@@ -17,7 +17,7 @@ function Login() {
         } else if (emailValid == false) {
             alert("Email inválido. Tente novamente");
         } else {
-            let response = await fetch("https://senai-gpt-api.azurewebsites.net/login", {
+            let response = await fetch("https://senai-gpt-api.up.railway.app/login", {
 
                 headers: {
                     "content-Type": "application/json"
@@ -96,6 +96,8 @@ function Login() {
                     <input className="inpt" value={password} onChange={event => setPassword(event.target.value)} type="password" placeholder="Insira a senha" />
 
                     <button className="btn" onClick={() => onLoginClick()}>Entrar</button>
+
+                    <a href="/new-user">Clique aqui para criar um usúario</a>
 
                 </div>
 

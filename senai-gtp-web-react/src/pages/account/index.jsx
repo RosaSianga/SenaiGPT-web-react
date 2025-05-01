@@ -15,6 +15,9 @@ function Account() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const [newPassword, setNewPassword] = useState("");
+
+
 
     useEffect(() => {
         // Executa toda vez que a tela abre.
@@ -40,6 +43,10 @@ function Account() {
 
             let json = await response.json(); //Pega a informação do back-end
 
+            let userId = localStorage.getItem("meuId");
+
+            json = json.filter(chat => chat.userId == userId);
+
             setChats(json);
 
         } else {
@@ -55,7 +62,7 @@ function Account() {
     const getAccount = async () => {
 
         let meuId = localStorage.getItem("meuId");
-        let response = await fetch("https://senai-gpt-api.azurewebsites.net/users/" + meuId, {
+        let response = await fetch("https://senai-gpt-api.up.railway.app/users/" + meuId, {
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("meuToken"),
                 "content-type": "application/json"
@@ -100,6 +107,34 @@ function Account() {
 
     }
 
+    const alterarSenha = async () => {
+
+        debugger;
+        let alteraPassword = {
+            name: nome,
+            email: email,
+            password: newPassword
+        };
+
+        let meuId = localStorage.getItem("meuId");
+        let response = await fetch("https://senai-gpt-api.up.railway.app/users/" + meuId, {
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("meuToken"),
+                "content-type": "application/json"
+            },
+            method: "PUT",
+            body: JSON.stringify(
+                alteraPassword
+            )
+
+        });
+
+        if (response.ok == true) {
+            console.log("Senha alterada com sucesso!");
+        }
+
+    }
+
     return (
         <>
 
@@ -108,6 +143,8 @@ function Account() {
                 <header className="chat">
 
                     <div className="superior">
+
+                        <button className="btnchat" type="button" onClick={() => clickChat()} > + New chat </button>
 
                         {chats.map(chat => (
 
@@ -173,7 +210,10 @@ function Account() {
                                 <p>Password :</p>
                                 <input className="inpt" value={password} onChange={event => setPassword(event.target.value)} type="password" />
 
-                                {/* <button className="btn" onClick={() => onLoginClick()}>Entrar</button> */}
+                                <p>New Password :</p>
+                                <input className="inpt" value={newPassword} onChange={event => setNewPassword(event.target.value)} type="password" />
+
+                                <button className="btn" onClick={() => alterarSenha()}>Alterar Senha</button>
                             </div>
                         </div>
 

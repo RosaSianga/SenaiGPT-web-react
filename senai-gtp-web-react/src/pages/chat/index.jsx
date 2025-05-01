@@ -44,6 +44,10 @@ function Chat() {
 
             let json = await response.json(); //Pega a informação do back-end
 
+            let userId = localStorage.getItem("meuId");
+
+            json = json.filter(chat => chat.userId == userId);
+
             setChats(json);
 
         } else {
@@ -87,7 +91,7 @@ function Chat() {
         };
 
         
-        let response = await fetch("https://senai-gpt-api.azurewebsites.net/chats", {
+        let response = await fetch("https://senai-gpt-api.up.railway.app/chats", {
             method: "POST",
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("meuToken"),
@@ -179,7 +183,7 @@ function Chat() {
         novoChatSelecionado.messages.push(novaRespostaChatGPT);
         setchatSelecionado(novoChatSelecionado);
 
-        let response = await fetch("https://senai-gpt-api.azurewebsites.net/chats/" + chatSelecionado.id, {
+        let response = await fetch("https://senai-gpt-api.up.railway.app/chats/" + chatSelecionado.id, {
             method: "PUT",
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("meuToken"),
