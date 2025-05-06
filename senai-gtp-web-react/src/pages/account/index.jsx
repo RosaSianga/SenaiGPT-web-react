@@ -130,7 +130,7 @@ function Account() {
         });
 
         if (response.ok == true) {
-            console.log("Senha alterada com sucesso!");
+            alert("Senha alterada com sucesso!");
         }
 
     }
@@ -200,7 +200,7 @@ function Account() {
 
                             <img className="logo" src={logo} alt="Logo do SenaiGPT" />
 
-                            <h1>My Account</h1>
+                            <h1 className="titulo">My Account</h1>
 
                             <div className="dados">
                                 <p>Nome : </p>

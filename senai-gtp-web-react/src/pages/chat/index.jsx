@@ -21,17 +21,21 @@ function Chat() {
     const [chatSelecionado, setchatSelecionado] = useState(null);
     const [userMessage, setUserMessage] = useState("");
 
+    const [isLeftPanelOpen, setIsLeftPanelOpen] = useState(false);
+
 
     useEffect(() => {
         // Executa toda vez que a tela abre.
 
         getChats();
 
+
     }, []);
 
     const getChats = async () => {
 
-        let response = await fetch("https://senai-gpt-api.azurewebsites.net/chats", {
+
+        let response = await fetch("https://senai-gpt-api.up.railway.app/chats", {
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("meuToken")
             }
@@ -76,7 +80,7 @@ function Chat() {
 
         let titulo = prompt("Insira o titulo do chat");
 
-        if (titulo == null || titulo == "" ) {
+        if (titulo == null || titulo == "") {
             alert("Insira um titulo");
             return;
         }
@@ -87,10 +91,10 @@ function Chat() {
             chatTitle: titulo,
             id: crypto.randomUUID(),
             userId: userId,
-            messages: ""
+            messages: []
         };
 
-        
+
         let response = await fetch("https://senai-gpt-api.up.railway.app/chats", {
             method: "POST",
             headers: {
@@ -120,6 +124,8 @@ function Chat() {
     }
 
     const chatGPT = async (message) => {
+
+        return "Chat ok";
 
         // Configurações do endpoint e chave da API
         const endpoint = "https://ai-testenpl826117277026.openai.azure.com/";
@@ -217,7 +223,11 @@ function Chat() {
 
             <div className="tela">
 
-                <header className="chat">
+                <button className="btn-panel" onClick={() => setIsLeftPanelOpen(true)}>
+                    ☰
+                </button>
+
+                <header className={`chat ${isLeftPanelOpen == true ? "open" : ""}`}>
 
                     <div className="superior">
 

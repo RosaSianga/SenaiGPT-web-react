@@ -1,0 +1,87 @@
+.page-container-account{
+
+    display: flex;
+
+}
+
+.titulo {
+
+    font-family: inter;
+    font-weight: normal;
+    margin-bottom: 16px;
+
+}
+
+.login-container-account {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 50vw;
+
+}
+
+.logo-account {
+
+    height: 60px;
+
+}
+
+.robo-image-account {
+
+    background-image: url("../../assets/imgs/Sidebar.png");
+    background-size: cover;
+    width: 50vw;
+    height: 100vh;
+
+}
+
+.login-container-account a {
+
+    color: black;
+
+}
+
+@media screen and (max-width : 768px) {
+
+    /* Celular */
+
+    .robo-image-account {
+        display: none;
+    }
+
+    .login-container-account {
+        width: 100vw;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../../assets/imgs/Sidebar.png");
+        background-size: cover;
+        color: white;
+
+    }
+
+    .btn-account {
+
+        background-color: white;
+
+    }
+
+    .login-container-account a {
+
+        color: white;
+
+    }
+
+}
+
+@media screen and (max-width : 1000px) {
+
+    /* Tablet */
+
+}
+
+@media screen and (max-width : 1366px) {
+
+    /* Desktop Pequeno */
+
+}

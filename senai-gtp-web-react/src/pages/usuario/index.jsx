@@ -75,15 +75,15 @@ function Usuario() {
 
             <header></header>
 
-            <main className="page-container">
+            <main className="page-container-account">
 
-                <div className="robo-image">
+                <div className="robo-image-account">
 
                 </div>
 
-                <div className="login-container">
+                <div className="login-container-account">
 
-                    <img className="logo" src={logo} alt="Logo do SenaiGPT" />
+                    <img className="logo-account" src={logo} alt="Logo do SenaiGPT" />
 
                     <h1>Novo Usuário</h1>
 
@@ -92,7 +92,7 @@ function Usuario() {
                     <input className="inpt" value={password} onChange={event => setPassword(event.target.value)} type="password" placeholder="Insira a senha" />
                     <input className="inpt" value={passwordConfirm} onChange={event => setPasswordConfirm(event.target.value)} type="password" placeholder="Confirme a senha" />
 
-                    <button className="btn" onClick={() => cadastrar()}>Cadastrar</button>
+                    <button className="btn-account" onClick={() => cadastrar()}>Cadastrar</button>
 
                     <a href="/login">Clique aqui para fazer o login</a>
 
