@@ -92,7 +92,7 @@ function Usuario() {
                     <input className="inpt" value={password} onChange={event => setPassword(event.target.value)} type="password" placeholder="Insira a senha" />
                     <input className="inpt" value={passwordConfirm} onChange={event => setPasswordConfirm(event.target.value)} type="password" placeholder="Confirme a senha" />
 
-                    <button className="btn-account" onClick={() => cadastrar()}>Cadastrar</button>
+                    <button className="btn" onClick={() => cadastrar()}>Cadastrar</button>
 
                     <a href="/login">Clique aqui para fazer o login</a>
 

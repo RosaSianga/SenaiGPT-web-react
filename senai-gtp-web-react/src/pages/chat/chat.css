@@ -101,7 +101,7 @@
 
 
 .tabela {
-    width: 60%;
+    width: 60vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -188,18 +188,25 @@ h1 img {
 
 }
 
-/*********************** CSS Ariel *************************/
+/*********************** CSS Responsivel *************************/
 
-@media screen and (max-width : 768px) {
+.btn-panel {
+    display: none;
+}
+
+@media screen and (max-width : 430px) {
 
     /* Celular */
 
     .chat {
+        /* Menu fechado */
 
         display: none;
     }
 
     .chat.open {
+        /* Menu aberto */
+
         display: block;
         position: absolute;
         width: 100vw;
@@ -213,8 +220,85 @@ h1 img {
     }
 
     .btn-panel {
+
+        display: block;
+
         z-index: 2;
-        
+
+        width: 50px;
+        height: 50px;
+        border-radius: 100px;
+        border: 1px solid black;
+
+        position: absolute;
+        right: 20px;
+        bottom: 110px;
+
+        font-size: 25px;
+
+        background-color: white;
+
+    }
+
+    .input {
+        width: 80vw;
+    }
+
+    .imagem {
+        width: 70vw;
+    }
+
+    .tabela {
+        width: 60vh;
+    }
+
+    .botao {
+        width: 15vh;
+        font-size: 10px;
+    }
+
+    h1 img {
+        margin-bottom: 5px;
+    }
+    
+    h1 {
+        font-size: 25px;
+    }
+
+}
+
+@media screen and (min-width: 431px) and (max-width: 768px){
+
+    /* Celular */
+
+    .chat {
+        /* Menu fechado */
+
+        display: none;
+    }
+
+    .chat.open {
+        /* Menu aberto */
+
+        display: block;
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        background-color: white;
+    }
+
+    .principal {
+
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .btn-panel {
+
+        display: block;
+
+        z-index: 2;
+
         width: 50px;
         height: 50px;
         border-radius: 100px;
@@ -228,6 +312,22 @@ h1 img {
 
         background-color: white;
 
+    }
+
+    .input {
+        width: 80vw;
+    }
+
+    .imagem {
+        width: 50vw;
+    }
+
+    .tabela {
+        width: 80vh;
+    }
+
+    .botao {
+        width: 20vh;
     }
 
 }

@@ -21,7 +21,7 @@ function Chat() {
     const [chatSelecionado, setchatSelecionado] = useState(null);
     const [userMessage, setUserMessage] = useState("");
 
-    const [isLeftPanelOpen, setIsLeftPanelOpen] = useState(false);
+    const [flagOpen, setFlagOpen] = useState(false);
 
 
     useEffect(() => {
@@ -73,6 +73,7 @@ function Chat() {
 
     const clickChat = (chat) => {
         setchatSelecionado(chat);
+        setFlagOpen(false);
 
     }
 
@@ -113,6 +114,26 @@ function Chat() {
             await getChats();
         } else {
             alert("Chat não criado");
+        }
+
+    }
+
+    const deleteChat = async () => {
+
+        let response = await fetch("https://senai-gpt-api.up.railway.app/chats/" + chatSelecionado.id, {
+            method: "DELETE",
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("meuToken"),
+                "content-type": "application/json"
+            }
+        });
+
+
+        if (response.ok == true) {
+            alert("Deletado com sucesso");
+            await getChats();
+        } else {
+            alert("Chat não deletado");
         }
 
     }
@@ -223,11 +244,11 @@ function Chat() {
 
             <div className="tela">
 
-                <button className="btn-panel" onClick={() => setIsLeftPanelOpen(true)}>
+                <button className="btn-panel" onClick={() => setFlagOpen(!flagOpen)}>
                     ☰
                 </button>
 
-                <header className={`chat ${isLeftPanelOpen == true ? "open" : ""}`}>
+                <header className={`chat ${flagOpen == true ? "open" : ""}`}>
 
                     <div className="superior">
 
@@ -248,9 +269,9 @@ function Chat() {
 
                     <div className="inferior">
 
-                        <button className="botoes" type="button">
+                        <button className="botoes" type="button" onClick={() => deleteChat()}>
                             <img src={lixeira} alt="Imagem lixeira" />
-                            Clear conversation
+                            Delete chat
                         </button>
 
                         <button className="botoes" type="button">
