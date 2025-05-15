@@ -1,17 +1,29 @@
 import "./chat.css";
 import imgChat from "../../assets/imgs/chat.svg";
+import imgChatWhite from "../../assets/imgs/chat-white.svg";
 import lixeira from "../../assets/imgs/lixeira.svg";
+import lixeiraWhite from "../../assets/imgs/lixeira-white.svg";
 import sol from "../../assets/imgs/sol.svg";
+import solWhite from "../../assets/imgs/sol-white.svg";
 import user from "../../assets/imgs/user.svg";
-import setaCima from "../../assets/imgs/seta_cima.svg";
+import userWhite from "../../assets/imgs/user-white.svg";
 import setaLado from "../../assets/imgs/seta_lado.svg";
+import setaLadoWhite from "../../assets/imgs/seta_lado-white.svg";
 import imgChatGPT from "../../assets/imgs/ChatGPT.png";
+import imgChatGPTWhite from "../../assets/imgs/ChatGPT-white.png";
 import chatVazio from "../../assets/imgs/chat_vazio.svg";
+import chatVazioWhite from "../../assets/imgs/chat_vazio-white.svg";
 import estrela from "../../assets/imgs/estrela.svg";
+import estrelaWhite from "../../assets/imgs/estrela-white.svg";
 import escudo from "../../assets/imgs/escudo.svg";
+import escudoWhite from "../../assets/imgs/escudo-white.svg";
 import microfone from "../../assets/imgs/microfone.svg";
+import microfoneWhite from "../../assets/imgs/microfone-white.svg";
 import image from "../../assets/imgs/image.svg";
+import imageWhite from "../../assets/imgs/image-white.svg";
 import seta from "../../assets/imgs/seta.svg";
+import setaWhite from "../../assets/imgs/seta-white.svg";
+
 import { useEffect, useState } from "react";
 
 
@@ -22,12 +34,19 @@ function Chat() {
     const [userMessage, setUserMessage] = useState("");
 
     const [flagOpen, setFlagOpen] = useState(false);
+    const [flagDarkMode, setFlagDarkMode] = useState(false);
 
 
     useEffect(() => {
         // Executa toda vez que a tela abre.
 
         getChats();
+
+        let modoEscuro = localStorage.getItem("dark-mode");
+        if (modoEscuro === "true") {
+            setFlagDarkMode(true);
+            document.body.classList.add("dark-mode");
+        }
 
 
     }, []);
@@ -239,6 +258,19 @@ function Chat() {
 
     }
 
+    const onclickDarkMode = () => {
+
+        setFlagDarkMode(!flagDarkMode);
+        if(flagDarkMode == true){
+            document.body.classList.remove("dark-mode");
+        } else {
+            document.body.classList.add("dark-mode");
+        }
+
+        localStorage.setItem("dark-mode", !flagDarkMode);
+
+    }
+
     return (
         <>
 
@@ -257,7 +289,7 @@ function Chat() {
                         {chats.map(chat => (
 
                             <button className="botoes" type="button" onClick={() => clickChat(chat)}>
-                                <img src={imgChat} alt="Imagem chat" />
+                                <img src={flagDarkMode == true? imgChatWhite : imgChat} alt="Imagem chat" />
                                 {chat.chatTitle}
                             </button>
 
@@ -270,27 +302,22 @@ function Chat() {
                     <div className="inferior">
 
                         <button className="botoes" type="button" onClick={() => deleteChat()}>
-                            <img src={lixeira} alt="Imagem lixeira" />
+                            <img src={flagDarkMode == true? lixeiraWhite : lixeira}  alt="Imagem lixeira" />
                             Delete chat
                         </button>
 
-                        <button className="botoes" type="button">
-                            <img src={sol} alt="Imagem ligth mode" />
+                        <button className="botoes" type="button" onClick={() => onclickDarkMode()}>
+                            <img src={flagDarkMode == true? solWhite : sol}  alt="Imagem ligth mode" />
                             Ligth mode
                         </button>
 
                         <button className="botoes" type="button" onClick={() => myAccountClick()}>
-                            <img src={user} alt="Imagem My account" />
+                            <img src={flagDarkMode == true? userWhite : user}  alt="Imagem My account" />
                             My account
                         </button>
 
-                        <button className="botoes" type="button">
-                            <img src={setaCima} alt="Imagem update e FAQ" />
-                            Updates & FAQ
-                        </button>
-
                         <button className="botoes" type="button" onClick={() => onLogoutClick()}>
-                            <img src={setaLado} alt="Imagem logout" />
+                            <img src={flagDarkMode == true? setaLadoWhite : setaLado}  alt="Imagem logout" />
                             Log out
                         </button>
 
@@ -307,14 +334,14 @@ function Chat() {
                             <>
 
 
-                                <img className="imagem" src={imgChatGPT} alt="Logo SenaiGPT" />
+                                <img className="imagem" src={flagDarkMode == true? imgChatGPTWhite : imgChatGPT}  alt="Logo SenaiGPT" />
 
 
                                 <div className="tabela">
 
                                     <div className="btngrupo">
                                         <h1>
-                                            <img src={chatVazio} alt="Imagem chat" />
+                                            <img src={flagDarkMode == true? chatVazioWhite : chatVazio}  alt="Imagem chat" />
                                             Examples
                                         </h1>
                                         <button className="botao" type="button">Explain Quantum Computing insimple terms</button>
@@ -325,7 +352,7 @@ function Chat() {
 
                                     <div className="btngrupo">
                                         <h1>
-                                            <img src={estrela} alt="Imagem chat" />
+                                            <img src={flagDarkMode == true? estrelaWhite : estrela}  alt="Imagem chat" />
                                             Capalities
                                         </h1>
                                         <button className="botao" type="button">Explain Quantum Computing insimple terms</button>
@@ -336,7 +363,7 @@ function Chat() {
 
                                     <div className="btngrupo">
                                         <h1>
-                                            <img src={escudo} alt="Imagem chat" />
+                                            <img src={flagDarkMode == true? escudoWhite : escudo} alt="Imagem chat" />
                                             Limitions
                                         </h1>
                                         <button className="botao" type="button">Explain Quantum Computing insimple terms</button>
@@ -380,12 +407,12 @@ function Chat() {
 
                         <div className="pesquisa">
 
-                            <img src={microfone} alt="Imagem microfone" />
-                            <img src={image} alt="Imagem foto" />
+                            <img src={flagDarkMode == true? microfone : microfone}  alt="Imagem microfone" />
+                            <img src={flagDarkMode == true? image : image}  alt="Imagem foto" />
 
                             <input onKeyUp={event => onKeyUp(event)} className="input" value={userMessage} onChange={event => setUserMessage(event.target.value)} type="text" placeholder="Type message" />
 
-                            <img src={seta} alt="Imagem foto" onClick={() => enviarMensagem(userMessage)} />
+                            <img src={flagDarkMode == true? seta : seta}  alt="Imagem foto" onClick={() => enviarMensagem(userMessage)} />
 
                         </div>
 
